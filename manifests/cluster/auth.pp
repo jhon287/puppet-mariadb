@@ -4,7 +4,6 @@
 #
 
 class mariadb::cluster::auth {
-
   if $mariadb::cluster::wsrep_sst_password != 'UNSET' {
     $wsrep_sst_peers = any2array($mariadb::cluster::wsrep_sst_user_peers)
     $wsrep_sst_users = prefix($wsrep_sst_peers, "${mariadb::cluster::wsrep_sst_user}@")
@@ -13,6 +12,7 @@ class mariadb::cluster::auth {
       wsrep_sst_password           => $mariadb::cluster::wsrep_sst_password,
       wsrep_sst_user_tls_options   => $mariadb::cluster::wsrep_sst_user_tls_options,
       wsrep_sst_user_grant_options => $mariadb::cluster::wsrep_sst_user_grant_options,
+      wsrep_sst_user_privileges    => $mariadb::cluster::wsrep_sst_user_privileges,
     }
   }
 }

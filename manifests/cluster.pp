@@ -68,7 +68,8 @@ class mariadb::cluster (
   $wsrep_sst_password           = $mariadb::params::wsrep_sst_password,
   $wsrep_sst_user_tls_options   = undef,
   $wsrep_sst_user_grant_options = undef,
-  Enum['mariabackup', 'mysqldump', 'rsync', 'rsync_wan', 'xtrabackup', 'xtrabackup-v2'] $wsrep_sst_method = $mariadb::params::wsrep_sst_method, # lint:ignore:140chars
+  Array[String] $wresp_sst_user_privileges = $mariadb::params::wsrep_sst_user_privileges,
+  Mariadb::Wsrep_SST_Method $wsrep_sst_method = $mariadb::params::wsrep_sst_method,
   $root_password                = $mariadb::params::root_password,
   $override_options             = {},
   $galera_override_options      = {},
@@ -81,7 +82,6 @@ class mariadb::cluster (
   $grants                       = {},
   $databases                    = {},
 ) inherits mariadb::params {
-
   $cluster_options = mysql::normalise_and_deepmerge($mariadb::params::cluster_default_options, $override_options)
   $galera_options  = mysql::normalise_and_deepmerge($mariadb::params::galera_default_options, $galera_override_options)
 
